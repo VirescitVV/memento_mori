@@ -2,6 +2,7 @@ import pandas as pd
 import os
 import menus
 import main_header
+import crypto
 
 
 def read_memento_mori():
@@ -43,3 +44,14 @@ def save_record(df):
     response = input('+> ').lower()
     if response == 'y':
         df.to_csv('memento_mori.csv', index=False)
+        crypto.key_check()
+        crypto.encrypt('memento_mori.csv')
+
+###Find way to check if record has already been decrypted prior to decrypting
+def read_record():
+    print('\nWould you like to read the record? (y/n)')
+    response = input('+> ').lower()
+    if response == 'y':
+        crypto.decrypt('memento_mori.csv')
+        df = pd.read_csv('memento_mori.csv')
+    return df
